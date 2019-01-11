@@ -17,6 +17,44 @@
     2. 切换时间为2S
     3. 点击按钮从界面中移除组件界面
    */
+
+  class MyComponent extends React.Component {
+
+      //初始化状态
+    state ={
+        opacity: 1
+    }
+      componentDidMount() {
+          // 启动循环定时器, 每隔0.2s减少0.1
+          this.intervalId = setInterval( () => {
+              console.log('setInterval()', this)
+              let {opacity} = this.state
+              opacity -= 0.1
+
+              // 如果变为了0, 要立即变为1
+              if(opacity<=0) {
+                  opacity = 1
+              }
+
+              this.setState({
+                  opacity
+              })
+          }, 200)
+      }
+
+      render(){
+        const {opacity} = this.state
+          return(
+              <div>
+                <h2 style={{opacity}}>好难啊</h2>
+                <button>学！</button>
+              </div>
+          )
+      }
+  }
+
+
+  ReactDOM.render(<MyComponent/>,document.getElementById('example'))
 </script>
 </body>
 </html>
